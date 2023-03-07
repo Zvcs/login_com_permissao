@@ -1,0 +1,8 @@
+create database loginpermissao;
+
+create table usuarios (
+id INT AUTO_increment primary key,
+nome varchar(50) not null,
+senha varchar(50) not null,
+permissao varchar(8) not null
+);
