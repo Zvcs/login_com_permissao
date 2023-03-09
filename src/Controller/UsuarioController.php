@@ -29,7 +29,7 @@ class UsuarioController extends Conectar
             return "Variavel vazia";
         }
         return $this->cadastra($this->nome, $this->senha, $this->permissao);
-        
+
     }
 
     public function realizaLogin()

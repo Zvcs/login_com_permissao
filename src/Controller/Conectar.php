@@ -37,7 +37,7 @@ class Conectar
         $sql = "SELECT id, nome, permissao FROM usuarios where nome = '{$nome}' AND senha = '{$senha}'";
 
         $result = mysqli_query($conn, $sql);
-        
+
 
         if (mysqli_num_rows($result) > 0) {
             $sqlarrayretorno = mysqli_fetch_row($result);
@@ -49,21 +49,27 @@ class Conectar
         return 0;
     }
 
-   /* protected function insereTexto(int $id, string $texto, string $permissao)
-    {
-        if ($permissao == ConstantesLogin::LEITOR) {
-            return 'Usuario não pode escrever';
+   protected function insereMensagem(string $mensagem, int $id, string $nome)
+   {
+        $conn = $this->conexao();
+
+        $sql = "INSERT INTO mensagens (mensagem, id, nome) VALUES ('{$mensagem}' , '{$id}' , '{$nome}')";
+
+        if (mysqli_query($conn, $sql)) {
+            return 'mensagem cadastrada';
         }
 
-        $this->insereSQLtexto($id, $texto);
-    }
+        return 'Não foi cadastrada';
+   }
 
-    protected function deletaTexto(?int $id, string $permissao)
-    {
-        if ($permissao == ConstantesLogin::ADMIN) {
-            $this->deletaSQLtexto($id);
-        }
-    }*/
+   protected function deletaMensagem(int $id, string $permissao)
+   {
+        $conn = $this->conexao();
+        //RECUPERAR O ID DA MENSAGEM
+        //VALIDAR PERMISSÃO E DELETAR A MENSAGEM
+
+        $sql = "DELETE FROM usuarios WHERE id = {$id}";
+   }
 
     private function conexao(): mysqli
     {
@@ -76,25 +82,5 @@ class Conectar
 
         return $conn;
     }
-    /*
-    private function insereSQLtexto(int $id, string $texto)
-    {
 
-    }
-
-    private function deletaSQLtexto(int $id = null)
-    {
-
-    }
-
-    private function recupetaSQLTexto(int $id)
-    {
-        
-    }
-
-    private function recuperaTodosSQLtexto()
-    {
-
-    }
-    */
 }
