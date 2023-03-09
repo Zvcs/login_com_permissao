@@ -34,16 +34,18 @@ class Conectar
         //session_start();
         $conn = $this->conexao();
 
-        $sql = "SELECT * FROM usuarios where nome = '{$nome}' AND senha = '{$senha}'";
+        $sql = "SELECT id, nome, permissao FROM usuarios where nome = '{$nome}' AND senha = '{$senha}'";
 
         $result = mysqli_query($conn, $sql);
+        
 
         if (mysqli_num_rows($result) > 0) {
-            //Sessao::iniciaSessao($nome, $senha);
+            $sqlarrayretorno = mysqli_fetch_row($result);
+            Sessao::iniciaSessao($sqlarrayretorno[0], $sqlarrayretorno[1], $sqlarrayretorno[2]);
             return 1;
         }
 
-        //Sessao::mataSessao();
+        Sessao::mataSessao();
         return 0;
     }
 

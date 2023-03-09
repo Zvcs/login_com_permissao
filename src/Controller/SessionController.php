@@ -31,17 +31,19 @@ class Sessao
     return $message;
     }
 
-    public static function iniciaSessao(string $nome, string $senha)
+    public static function iniciaSessao(string $id, string $nome, int $permissao)
     {
         session_start();
         $_SESSION['nome'] = $nome;
-        $_SESSION['senha'] = $senha;
+        $_SESSION['id'] = $id;
+        $_SESSION['permissao'] = $permissao;
     }
 
     public static function mataSessao(): void
     {
         session_start();
         unset($_SESSION['nome']);
-        unset($_SESSION['senha']);
+        unset($_SESSION['id']);
+        unset($_SESSION['permissao']);
     }
 }
