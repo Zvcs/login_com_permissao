@@ -1,0 +1,17 @@
+create database loginpermissao;
+
+create table usuarios (
+id INT AUTO_increment primary key,
+nome varchar(50) not null,
+senha varchar(50) not null,
+permissao varchar(8) not null
+);
+
+create table mensagens (
+id INT AUTO_increment,
+nome varchar(50) not null,
+texto varchar(120) not null,
+id_usuario int not null,
+primary key (id),
+foreign key (id_usuario) REFERENCES usuarios(id)
+);
