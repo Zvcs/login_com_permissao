@@ -31,7 +31,10 @@
                                     </div>
                                     <br>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Permissao" name="permission" type="text" value="">
+                                        <input type="radio" id="Escritor" name="permission" value="Escritor">
+                                               <label for="Escritor">Escritor</label><br>
+                                        <input type="radio" id="Leitor" name="permission" value="Leitor">
+                                        <label for="Leitor">Leitor</label><br>
                                     </div>
                                     <br>
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Cadastrar">

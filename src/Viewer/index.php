@@ -20,8 +20,8 @@
             </div>
             <div class="col-px-md-6">
                 <div class="configdiv">
-                    <button class="btn-group-toggle"><a href="cadastrar.php">Cadastrar</a></button>
-                    <button class="btn-group-toggle"><a href="login.php">Login</a></button>
+                    <button class="btn btn-lg btn-success btn-block"><a class="link-light" href="cadastrar.php" >Cadastrar</a></button>
+                    <button class="btn btn-lg btn-success btn-block"><a class="link-light" href="login.php">Login</a></button>
                 </div>
             </div>
         </div>

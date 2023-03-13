@@ -6,11 +6,13 @@ use src\login\banco\Banco;
 use src\login\sessao\Sessao;
 use src\login\constantes\ConstantesLogin;
 use mysqli;
+use mysqli_result;
 
 include_once ('../Model/Usuario.php');
 include_once ('../Helper/UsuariosConstantes.php');
 include_once ('../Controller/UsuarioController.php');
 include_once ('../Helper/BancoConstantes.php');
+include_once ('../Controller/SessionController.php');
 
 class Conectar
 {
@@ -31,7 +33,6 @@ class Conectar
 
     protected function login(string $nome, string $senha): int
     {
-        //session_start();
         $conn = $this->conexao();
 
         $sql = "SELECT id, nome, permissao FROM usuarios where nome = '{$nome}' AND senha = '{$senha}'";
@@ -49,27 +50,57 @@ class Conectar
         return 0;
     }
 
-   protected function insereMensagem(string $mensagem, int $id, string $nome)
-   {
+    protected function insereMensagem(string $nome, string $texto, int $id)
+    {
         $conn = $this->conexao();
 
-        $sql = "INSERT INTO mensagens (mensagem, id, nome) VALUES ('{$mensagem}' , '{$id}' , '{$nome}')";
+        $sql = "INSERT INTO mensagens (nome, texto, id_usuario) VALUES ('{$nome}' , '{$texto}' , {$id})";
 
-        if (mysqli_query($conn, $sql)) {
-            return 'mensagem cadastrada';
+        if (!mysqli_query($conn, $sql)) {
+            return "n foi";
         }
 
-        return 'Não foi cadastrada';
-   }
+        return "foi";
 
-   protected function deletaMensagem(int $id, string $permissao)
-   {
+    }
+
+    protected function exibeTodasMensagens()
+    {
         $conn = $this->conexao();
-        //RECUPERAR O ID DA MENSAGEM
-        //VALIDAR PERMISSÃO E DELETAR A MENSAGEM
 
-        $sql = "DELETE FROM usuarios WHERE id = {$id}";
-   }
+        $sql = "SELECT m.texto, m.id_usuario, m.nome, m.id from mensagens as m";
+
+        $resultado = mysqli_query($conn, $sql);
+
+        return $resultado;
+    }
+
+    protected function exibeMensagem(int $id): mysqli_result
+    {
+        $conn = $this->conexao();
+
+        $sql = "SELECT m.texto, m.id_usuario, m.nome, m.id from mensagens as m WHERE id_usuario = {$id}";
+
+        $resultado = mysqli_query($conn, $sql);
+
+        return $resultado;
+    }
+
+    protected function deletaMensagem(int $id)
+    {
+        $conn = $this->conexao();
+
+        $sql = "DELETE FROM mensagens WHERE id = {$id}";
+
+        $resultado = mysqli_query($conn, $sql);
+
+        if ($resultado) {
+            header('Location: ../Viewer/home.php');
+            exit;
+        }
+
+        return 'Deu ruim';
+    }
 
     private function conexao(): mysqli
     {
@@ -83,4 +114,8 @@ class Conectar
         return $conn;
     }
 
+    private function erro()
+    {
+
+    }
 }

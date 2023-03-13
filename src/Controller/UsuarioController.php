@@ -32,13 +32,14 @@ class UsuarioController extends Conectar
 
     }
 
-    public function realizaLogin()
+    public function realizaLogin(): void
     {
         $login = $this->login($this->nome, $this->senha);
         if ($login) {
-            return 'foi';
+            header('Location: ../Viewer/home.php');
+            exit;
         }
-        return 'foi n';
+        header('Location: ../Viewer/login.php');
     }
 
 

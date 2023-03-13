@@ -9,6 +9,7 @@ include_once ('../Controller/UsuarioController.php');
 
 $nome = $_POST['name'];
 $senha = $_POST['password'];
+$mensagem = $_POST['mensage'];
 
 $usuario = new Usuario($nome, $senha);
 

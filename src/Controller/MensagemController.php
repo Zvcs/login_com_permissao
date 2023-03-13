@@ -24,8 +24,7 @@ class MensagemController extends Conectar
 
      public function enviaMensagem()
     {
-        return $this->insereMensagem($this->texto, $this->id, $this->nome);
+        return $this->insereMensagem($this->nome, $this->texto, $this->id);
     }
-
 
 }

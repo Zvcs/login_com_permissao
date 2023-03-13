@@ -5,10 +5,14 @@ namespace src\login\sessao;
 
 class Sessao
 {
+    public static function inicio(): void
+    {
+        session_start();
+    }
 
     public static function verificaLogin(): string
     {
-        session_start();
+        self::inicio();
         if (isset($_SESSION['nome']) == null || isset($_SESSION['senha']) == null) {
             //ARRUMAR O $MESSAGE PARA CONDIZER COM O NOVO TREM
             $message = "<h1> É necessário fazer o login para acessar essa página</h1><br>
@@ -31,9 +35,9 @@ class Sessao
     return $message;
     }
 
-    public static function iniciaSessao(string $id, string $nome, int $permissao)
+    public static function iniciaSessao(int $id, string $nome, string $permissao)
     {
-        session_start();
+        self::inicio();
         $_SESSION['nome'] = $nome;
         $_SESSION['id'] = $id;
         $_SESSION['permissao'] = $permissao;
@@ -41,7 +45,7 @@ class Sessao
 
     public static function mataSessao(): void
     {
-        session_start();
+        self::inicio();
         unset($_SESSION['nome']);
         unset($_SESSION['id']);
         unset($_SESSION['permissao']);
