@@ -7,9 +7,14 @@ include_once ('../Controller/SessionController.php');
 include_once ('../Controller/ExibicaoController.php');
 
 Sessao::inicio();
-$exibir = new ExibicaoController($_SESSION['id'], $_SESSION['permissao']);
+$logado = Sessao::verificaLogin();
+if ($logado) {
+    $exibir = new ExibicaoController($_SESSION['id'], $_SESSION['permissao']);
 
-$exibir->recuperaMensagem();
-
+    $exibir->recuperaMensagem();
+}else {
+    echo "<h1> É necessário fazer o login para acessar essa página</h1><br>
+    <button class=\"btn-group-toggle\"><a href=\"../Viewer/login.php\">Login</a></button>";
+    }
 
 ?>

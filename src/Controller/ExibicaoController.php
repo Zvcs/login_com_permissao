@@ -23,18 +23,19 @@ class ExibicaoController extends Conectar
             if ($resultado) {
                 while ($registro = mysqli_fetch_array($resultado, MYSQLI_ASSOC)) {
 
-            // verifica se o registro (tweet) da iteração pertence ao usuario logado, se sim, será incluido o botão excluir tweet
             if ($registro['id_usuario'] == $this->id) {
 
                 // para cada registro(tweet) é criado um item do list-group da div
                 echo "<div class='list-group-item'>";
 
-                // contendo um cabeçalho onde terá nome do usuário, a data de inclusão do tweet e um botão excluir tweet para os do usuario logado
-                echo "<h4 class='list-group-item-heading'>" . $registro['nome'] . "<small> - Para Excluir o texto, clique em seu número". "</small><form method ='post' action = '../Controller/Excluir.php'> <input type='submit' placeholder='Excluir' class='btn btn-default btn-xs btn_del_tweet pull-right' name='Excluir' value='" . $registro['id'] . "'></form></h4>";
+                echo "<h4 class='list-group-item-heading'>" . $registro['nome'] .
+                "<small> - Para Excluir o texto, clique em seu número".
+                "</small><form method ='post' action = '../Controller/Excluir.php'>
+                <input type='submit' placeholder='Excluir' class='btn btn-default btn-xs btn_del_tweet pull-right'
+                name='Excluir' value='" . $registro['id'] . "'></form></h4>";
 
-                // por fim, um paragrafo onde conterá o tweet em si
-                echo "<p class='list-group-item-text' style='font-size: 17px; word-wrap: break-word;'>" . $registro['texto'] . "</p>";
-                echo "</div><br>";
+                echo "<p class='list-group-item-text' style='font-size: 17px; word-wrap: break-word;'>"
+                . $registro['texto'] . "</p> </div><br>";
 
             } else {
 
@@ -69,12 +70,13 @@ class ExibicaoController extends Conectar
                                                     <input class=\"btn btn-lg btn-success btn-block\" type=\"submit\" value=\"Enviar\">
                                                 </fieldset>
                         </form>
+                        
+    <button class=\"btn-group-toggle\"><a href=\"../Viewer/login.php\">Sair</a></button>
                         </body>
                     </head>
                 </html>";
 
-        }
-        else {
+        }else {
             $resultado = $this->exibeTodasMensagens();
 
             if ($resultado) {

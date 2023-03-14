@@ -4,15 +4,16 @@ namespace src\login\conectar;
 
 use src\login\banco\Banco;
 use src\login\sessao\Sessao;
-use src\login\constantes\ConstantesLogin;
 use mysqli;
 use mysqli_result;
+use src\login\modal\Modal;
 
 include_once ('../Model/Usuario.php');
 include_once ('../Helper/UsuariosConstantes.php');
 include_once ('../Controller/UsuarioController.php');
 include_once ('../Helper/BancoConstantes.php');
 include_once ('../Controller/SessionController.php');
+include_once ('../Helper/Modais.php');
 
 class Conectar
 {
@@ -25,10 +26,12 @@ class Conectar
         VALUES ('{$nome}', '{$senha}', '{$permissao}')";
 
         if (!mysqli_query($conn, $sql)) {
-            return "n foi";
+            return Modal::MODAL_ERRO_CADASTRO;
         }
 
-        return "foi";
+        header('Location: ../Viewer/index.php');
+        return Modal::MODAL_SUCESSO_CADASTRO;
+        
     }
 
     protected function login(string $nome, string $senha): int
@@ -57,10 +60,10 @@ class Conectar
         $sql = "INSERT INTO mensagens (nome, texto, id_usuario) VALUES ('{$nome}' , '{$texto}' , {$id})";
 
         if (!mysqli_query($conn, $sql)) {
-            return "n foi";
+            header('Location: ../Viewer/home.php');
         }
 
-        return "foi";
+        header('Location: ../Viewer/home.php');
 
     }
 
@@ -70,9 +73,8 @@ class Conectar
 
         $sql = "SELECT m.texto, m.id_usuario, m.nome, m.id from mensagens as m";
 
-        $resultado = mysqli_query($conn, $sql);
+        return mysqli_query($conn, $sql);
 
-        return $resultado;
     }
 
     protected function exibeMensagem(int $id): mysqli_result
@@ -81,9 +83,8 @@ class Conectar
 
         $sql = "SELECT m.texto, m.id_usuario, m.nome, m.id from mensagens as m WHERE id_usuario = {$id}";
 
-        $resultado = mysqli_query($conn, $sql);
+        return mysqli_query($conn, $sql);
 
-        return $resultado;
     }
 
     protected function deletaMensagem(int $id)
@@ -98,8 +99,8 @@ class Conectar
             header('Location: ../Viewer/home.php');
             exit;
         }
-
-        return 'Deu ruim';
+        Modal::MODAL_ERRO_EXCLUIR;
+        header('Location: ../Viewer/home.php');
     }
 
     private function conexao(): mysqli
@@ -114,8 +115,4 @@ class Conectar
         return $conn;
     }
 
-    private function erro()
-    {
-
-    }
 }

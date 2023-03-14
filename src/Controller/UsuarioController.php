@@ -4,10 +4,11 @@ namespace src\login\UsuarioController;
 
 use src\login\usuario\Usuario;
 use src\login\conectar\Conectar;
+use src\login\modal\Modal;
 
 include_once ('../Model/Usuario.php');
 include_once ('../Controller/Conectar.php');
-
+include_once ('../Helper/Modais.php');
 
 class UsuarioController extends Conectar
 {
@@ -26,7 +27,8 @@ class UsuarioController extends Conectar
     {
         if ($this->nome == '' || $this->nome == null || $this->senha == '' ||
         $this->senha == null || $this->permissao == '' || $this->permissao == null) {
-            return "Variavel vazia";
+            header('Location: ../Viewer/cadastrar.php');
+            return Modal::MODAL_ERRO_CADASTRO;
         }
         return $this->cadastra($this->nome, $this->senha, $this->permissao);
 

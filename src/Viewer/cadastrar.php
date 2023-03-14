@@ -1,6 +1,10 @@
 <?php
 
+use src\login\sessao\Sessao;
 
+include_once ('../Controller/SessionController.php');
+
+Sessao::mataSessao();
 
 
 ?>

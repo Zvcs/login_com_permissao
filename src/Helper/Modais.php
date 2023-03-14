@@ -2,7 +2,7 @@
 
 namespace src\login\modal;
 
-class modal
+class Modal
 {
     public const MODAL_SUCESSO_CADASTRO = '<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Sucesso ao cadastrar usuário" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -48,6 +48,14 @@ class modal
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       Erro ao excluir mensagem!
+    </div>
+  </div>
+</div>';
+
+  public const MODAL_ERRO_PERMISSAO = '<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Erro" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+     Voce nao tem permissao suficiente!
     </div>
   </div>
 </div>';
