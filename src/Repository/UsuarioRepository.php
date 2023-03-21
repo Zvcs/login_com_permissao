@@ -12,12 +12,10 @@ use src\login\Entity\Usuario;
 class UsuarioRepository
 {
     private PDO $conn;
-    private Sessao $sessao;
 
     public function __construct()
     {
         $this->conn = Conectar::conectar();
-        $this->sessao = new Sessao();
     }
 
     public function cadastraUsuario(string $nome, string $senha, string $permissao): void
@@ -46,7 +44,7 @@ class UsuarioRepository
         $stmt->execute();
         if ($stmt->rowCount() > 0){
             $usuario = $this->trataUsuario($stmt->fetch(PDO::FETCH_ASSOC));
-            $this->sessao->iniciaSessao($usuario->recuperaId(), $usuario->recuperaNome(), $usuario->recuperaPermissao());
+            Sessao::iniciaSessao($usuario->recuperaId(), $usuario->recuperaNome(), $usuario->recuperaPermissao());
             header('Location: ../Viewer/home.php?sucess=1');
             exit();
         }

@@ -6,16 +6,13 @@ require '../../vendor/autoload.php';
 
 class Sessao
 {
-    public function __construct()
-    {
-    }
 
     public static function inicio(): void
     {
         session_start();
     }
 
-    public function iniciaSessao(int $id, string $nome, string $permissao): void
+    public static function iniciaSessao(int $id, string $nome, string $permissao): void
     {
         self::inicio();
         $_SESSION['nome'] = $nome;
